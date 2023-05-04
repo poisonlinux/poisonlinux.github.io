@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+<head>
+    <title>Atualização Poison Linux</title>
+    <meta charset='UTF-8'>
+    <meta name="description" content="Poison linux Documentação">
+    <meta name="keywords" content="slackjeff, poison linux">
+    <meta name="author" content="slackjeff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a href="/">../Retornar</a>
+
+<h1>Atualização Poison Linux.</h1>
+<p>Atualização de Pacotes (Patches) de segurança.</p>
+<hr>
+
+<p>
+Como sabemos o Poison linux não tem um gerenciador de (alto nível) ou (atualizador) via internet. O slackpkg, slapt-get e ferramentas foram removidas. Poison Linux utiliza um gerenciador poderoso chamado (INTELIGÊNCIA) do usuário.
+</p>
+
+<p>Para atualizar o poison linux envolve apenas 4 etapas!</p>
+<ol>
+    <li>Ler o ChangeLog e verificar as mudanças</li>
+    <li>Verificar se o software está em seu sistema caso você não fez uma instalação FULL ou acabou removendo alguns programas que vem junto com a ISO.</li
+    <li>Baixar o pacote (patch)</li>
+    <li>Atualizar.</li>
+</ol>
+
+Simplesmente é isso! Você acaba ficando mais intimo com o sistema e sabendo o que foi afetado.
+
+
+<h2>Antes de começar.</h2>
+
+<p>
+É interessante você ter um diretório em seu HOME, lá será um diretório para baixar os pacotes para atualizar. Não se preocupe eles podem ser descartados logo depois da atualização mas é necessário existir um diretório para esta finalidade para não sujar o seu sistema.
+</p>
+
+<p>
+Vamos criar o diretório upgrades!
+</p>
+
+<pre id=code>
+mkdir -v /home/SeuUsuario/Upgrades
+</pre>
+
+<p>
+Agora sim, podemos continuar...
+</p>
+
+<h2>O caminho mais "Caprichado"</h2>
+
+<h2>Ler o ChangeLog e verificar as mudanças.</h2>
+
+<p>
+Ler o ChangeLog é o principio básico de tudo. Queremos que você saiba o que está sendo atualizado, como o software foi afetado e principalmente o POR QUE.
+</p>
+
+<p>É recomendado voce ter um navegador aberto e um terminal! Este é o mêtodo mais básico para abrir o changelog e no terminal baixar os pacotes para o diretórios 'Upgrades' que você criou em seu HOME, isto será feito via wget.</p>
+
+<a target="_blank" href="https://slackjeff.com.br/poisonlinux/ChangeLog.txt">ChangeLog</a>
+
+<p>
+A tag [UPGRADED] é a mais importante neste tutorial, pois é ela que vai indicar qual pacote teve atualização.
+Existe tambem o caminho aonde o software está localizado, este caminho é normalmente em patches/packages/NomeDoSoftware.tzz
+Como exemplo o whois:
+</p>
+
+<pre id=code>
+patches/packages/whois-5.5.17-x86_64-1_slack15.0.tzz:  [UPGRADED]
+</pre>
+
+<h2>Verificar se o software está em seu sistema.</h2>
+
+Verifique se o pacote está instalado em seu sistema.
+
+<pre id=code>
+ls /var/lib/pkgtools/packages/whois-*
+/var/lib/pkgtools/packages/whois-5.5.17-x86_64-1_slack15.0
+</pre>
+
+<p>
+Se houver um retorno como este (EXEMPLO): "/var/lib/pkgtools/packages/whois-5.5.17-x86_64-1_slack15.0) o software está instalado.
+</p>
+
+<h2>Baixar o pacote (patch).</h2>
+
+<p>
+Feito a verificação você vai até a raiz do site: <a href="https://slackjeff.com.br/poisonlinux/">https://slackjeff.com.br/poisonlinux/</a> entra no diretório 'patches' e 'packages' e busca pelo software, no caso de exemplo whois.
+</p>
+
+<h2>Atualizar.</h2>
+
+<p>
+Copie o link dele baixe com wget e usamos o upgradepkg para atualizar. Não esqueça que o upgradepkg é uma ferramenta administrativa, portando necessita estar logado como root.
+</p>
+
+<pre id=code>
+# Entrando no diretório que criamos
+cd /home/SeuUsuario/Upgrades/
+wget https://slackjeff.com.br/poisonlinux/patches/packages/whois-5.5.17-x86_64-1_slack15.0.tzz
+# upgradepkg whois-5.5.17-x86_64-1_slack15.0.tzz
+</pre>
+
+<p>
+Lembre-se de manter sempre o seu sistema atualizado e recomendamos a cada 4 dias verificar o ChangeLog.
+</p>
+
+
+<h2>O caminho "Estou sem tempo."</h2>
+
+<p>
+Este é o mêtodo preguiçoso mas que se você ler o ChangeLog, saber o que está sendo feito/atualizado e tem intimidade com o sistema e sabe o que está instalado de cabeça. Pode ser interessante.
+</p>
+
+Vamos usar o lftp, uma incrivel ferramenta moderna que vai sincronizar os pacotes de patches no repositório com sua máquina. Porém em cada atualização é necessário você deixar os patches que foram feitos downloads para a sincronia ser correta.
+
+Necessário para rodar upgradepkg root.
+
+<pre id=code>
+lftp -c 'open https://slackjeff.com.br/poisonlinux/patches/ ; mirror -c -e packages'
+# upgradepkg packages/*.tzz
+</pre>
+
+
+
+</body>
+</html>
+

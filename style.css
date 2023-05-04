@@ -1,0 +1,37 @@
+body{ background-color: black; color: white; margin: 0 auto; max-width: 70%; font-size: 120%; font-family: Open Sans;}
+#logo{color: #0bff00;}
+ul li{margin-bottom: 1%;}
+ol li{margin-bottom: 1%;}
+pre {color: magenta; font-size: 120%;}
+footer{margin-top: 5%;}
+footer pre{color: white; width: 70%;}
+
+#code{background-color: #0e0e0e; padding: 1%; box-shadow: 2px 2px 2px gray; white-space: pre-wrap; }
+h1, h2, h3{ color: yellow;}
+a { color: cyan;}
+a:hover { color: yellow;}
+a:visited {color: cyan;}
+
+.topnav {
+  background-color: #0d0d0d;
+  overflow: hidden;
+}
+
+.topnav a{
+  float: left;
+  color: #31ff00;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 19px;
+}
+
+.topnav a:hover {
+  background-color: #000000;
+  color: red;
+}
+
+@media only screen and (max-width: 480px)
+{
+  body { margin: 2%; max-width: 100%; font-size: 110%;}
+}
